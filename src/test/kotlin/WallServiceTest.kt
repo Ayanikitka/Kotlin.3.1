@@ -32,7 +32,7 @@ class WallServiceAddTest {
         WallService.add(Post())
         val update = Post(id = -1)
 
-        val isNotUpdate = WallService.update(update)
+        val isNotUpdate = !WallService.update(update)
 
         assertTrue(isNotUpdate)
     }

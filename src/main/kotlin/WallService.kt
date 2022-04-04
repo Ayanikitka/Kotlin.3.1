@@ -1,4 +1,5 @@
 import java.lang.RuntimeException
+import kotlin.jvm.Throws
 
 object WallService {
 
@@ -22,21 +23,18 @@ object WallService {
         return false
     }
 
+    @Throws(PostNotFoundException::class)
     fun createComment(comment: Comment): Boolean {
-        for (i in posts.indices)
+        for (i in posts.indices) {
             if (posts[i].id == comment.postId) {
                 comments += comment
                 return true
             }
+        }
         throw PostNotFoundException("no post with ${comment.postId}")
     }
 
     fun clearPosts() {
         posts = emptyArray()
     }
-    fun clearComments() {
-        comments = emptyArray()
-    }
 }
-
-class PostNotFoundException(s: String) : RuntimeException(s)

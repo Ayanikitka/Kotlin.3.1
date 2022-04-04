@@ -39,7 +39,6 @@ class WallServiceAddTest {
     @Test
     fun createComment_existingId() {
         WallService.clearPosts()
-        WallService.clearComments()
         WallService.add(Post())
         val comment = Comment(postId = 1)
 
@@ -51,10 +50,9 @@ class WallServiceAddTest {
     @Test(expected = PostNotFoundException::class)
     fun createComment_notExistingId() {
         WallService.clearPosts()
-        WallService.clearComments()
         WallService.add(Post())
-        val comment = Comment(postId = 5)
+        val comment = Comment(postId = 1234)
 
-        val isAdded = WallService.createComment(comment)
+        WallService.createComment(comment)
     }
 }

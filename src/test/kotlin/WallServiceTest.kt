@@ -32,8 +32,29 @@ class WallServiceAddTest {
         WallService.add(Post())
         val update = Post(id = -1)
 
-        val isNotUpdate = !WallService.update(update)
+        val isNotUpdate = WallService.update(update)
 
-        assertTrue(isNotUpdate)
+        assertFalse(isNotUpdate)
+    }
+    @Test
+    fun createComment_existingId() {
+        WallService.clearPosts()
+        WallService.clearComments()
+        WallService.add(Post())
+        val comment = Comment(postId = 1)
+
+        val isAdded = WallService.createComment(comment)
+
+        assertTrue(isAdded)
+    }
+
+    @Test(expected = PostNotFoundException::class)
+    fun createComment_notExistingId() {
+        WallService.clearPosts()
+        WallService.clearComments()
+        WallService.add(Post())
+        val comment = Comment(postId = 5)
+
+        val isAdded = WallService.createComment(comment)
     }
 }
